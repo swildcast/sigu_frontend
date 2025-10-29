@@ -1,0 +1,78 @@
+<div class="container">
+  <h2>👥 Gestión de Usuarios</h2>
+
+  <button (click)="showForm = !showForm" class="btn btn-primary">
+    {{ showForm ? 'Cancelar' : 'Nuevo Usuario' }}
+  </button>
+
+  <!-- Formulario -->
+  <div *ngIf="showForm" class="form-container">
+    <h3>{{ editingUsuario ? 'Editar' : 'Nuevo' }} Usuario</h3>
+
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input [(ngModel)]="newUsuario.nombre" *ngIf="!editingUsuario"
+             placeholder="Nombre completo">
+      <input [(ngModel)]="editingUsuario.nombre" *ngIf="editingUsuario"
+             placeholder="Nombre completo">
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input [(ngModel)]="newUsuario.email" *ngIf="!editingUsuario"
+             type="email" placeholder="Email">
+      <input [(ngModel)]="editingUsuario.email" *ngIf="editingUsuario"
+             type="email" placeholder="Email">
+    </div>
+
+    <div class="form-group">
+      <label>Rol:</label>
+      <select [(ngModel)]="newUsuario.rol" *ngIf="!editingUsuario">
+        <option value="estudiante">Estudiante</option>
+        <option value="docente">Docente</option>
+        <option value="administrador">Administrador</option>
+      </select>
+      <select [(ngModel)]="editingUsuario.rol" *ngIf="editingUsuario">
+        <option value="estudiante">Estudiante</option>
+        <option value="docente">Docente</option>
+        <option value="administrador">Administrador</option>
+      </select>
+    </div>
+
+    <button (click)="editingUsuario ? updateUsuario() : createUsuario()"
+            class="btn btn-success">
+      {{ editingUsuario ? 'Actualizar' : 'Guardar' }}
+    </button>
+
+    <button (click)="cancelEdit()" class="btn btn-secondary">Cancelar</button>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <table class="table" *ngIf="usuarios.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.rol }}</td>
+        <td>
+          <button (click)="editUsuario(usuario)" class="btn btn-warning">Editar</button>
+          <button (click)="deleteUsuario(usuario.id!)" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="usuarios.length === 0">
+    <p>No hay usuarios registrados.</p>
+  </div>
+</div>
