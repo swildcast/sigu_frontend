@@ -3,8 +3,8 @@
 ## 📋 Descripción
 Sistema web para la gestión de procesos universitarios como inscripciones, materias y programas académicos.
 
-**Frontend:** Angular 20  
-**Backend:** .NET 8 Web API  
+**Frontend:** Angular 20
+**Backend:** .NET 8 Web API
 **Base de datos:** SQLite
 
 ## 🚀 Instalación y Ejecución
@@ -108,10 +108,10 @@ npm run build
 Los archivos de producción se generan en la carpeta `dist/`.
 
 ## 🤝 Contribución
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
+1. Haz fork del proyecto
+2. Crea una rama para tu funcionalidad (`git checkout -b feature/IncreibleFuncionalidad`)
+3. Confirma tus cambios (`git commit -m 'Agrega alguna IncreibleFuncionalidad'`)
+4. Sube a la rama (`git push origin feature/IncreibleFuncionalidad`)
 5. Abre un Pull Request
 
 ## 📄 Licencia
