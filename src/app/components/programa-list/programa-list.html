@@ -1,0 +1,92 @@
+<div class="container">
+  <h1>Gestión de Programas</h1>
+
+  <button (click)="showForm = !showForm" class="btn btn-primary mb-3">
+    {{ showForm ? 'Cancelar' : 'Agregar Nuevo Programa' }}
+  </button>
+
+  <!-- Formulario para crear/editar -->
+  <div *ngIf="showForm" class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">{{ editingPrograma ? 'Editar Programa' : 'Nuevo Programa' }}</h5>
+      <form (ngSubmit)="editingPrograma ? updatePrograma() : createPrograma()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="(editingPrograma || newPrograma).name"
+            name="name"
+            required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea
+            class="form-control"
+            id="description"
+            [(ngModel)]="(editingPrograma || newPrograma).description"
+            name="description"
+            rows="3"
+            required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Duración (años)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="duration"
+            [(ngModel)]="(editingPrograma || newPrograma).duration"
+            name="duration"
+            min="1"
+            required>
+        </div>
+        <button type="submit" class="btn btn-success me-2">
+          {{ editingPrograma ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button type="button" (click)="cancelEdit()" class="btn btn-secondary">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de programas -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Lista de Programas</h5>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Duración (años)</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let programa of programas">
+              <td>{{ programa.id }}</td>
+              <td>{{ programa.name }}</td>
+              <td>{{ programa.description }}</td>
+              <td>{{ programa.duration }}</td>
+              <td>
+                <button (click)="editPrograma(programa)" class="btn btn-sm btn-warning me-2">
+                  Editar
+                </button>
+                <button (click)="deletePrograma(programa.id!)" class="btn btn-sm btn-danger">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="programas.length === 0" class="text-center text-muted">
+        No hay programas registrados.
+      </div>
+    </div>
+  </div>
+</div>

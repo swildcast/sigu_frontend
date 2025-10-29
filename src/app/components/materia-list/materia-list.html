@@ -1,0 +1,92 @@
+<div class="container">
+  <h1>Gestión de Materias</h1>
+
+  <button (click)="showForm = !showForm" class="btn btn-primary mb-3">
+    {{ showForm ? 'Cancelar' : 'Agregar Nueva Materia' }}
+  </button>
+
+  <!-- Formulario para crear/editar -->
+  <div *ngIf="showForm" class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">{{ editingMateria ? 'Editar Materia' : 'Nueva Materia' }}</h5>
+      <form (ngSubmit)="editingMateria ? updateMateria() : createMateria()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="(editingMateria || newMateria).name"
+            name="name"
+            required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea
+            class="form-control"
+            id="description"
+            [(ngModel)]="(editingMateria || newMateria).description"
+            name="description"
+            rows="3"
+            required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="credits" class="form-label">Créditos</label>
+          <input
+            type="number"
+            class="form-control"
+            id="credits"
+            [(ngModel)]="(editingMateria || newMateria).credits"
+            name="credits"
+            min="1"
+            required>
+        </div>
+        <button type="submit" class="btn btn-success me-2">
+          {{ editingMateria ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button type="button" (click)="cancelEdit()" class="btn btn-secondary">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de materias -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Lista de Materias</h5>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Créditos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let materia of materias">
+              <td>{{ materia.id }}</td>
+              <td>{{ materia.name }}</td>
+              <td>{{ materia.description }}</td>
+              <td>{{ materia.credits }}</td>
+              <td>
+                <button (click)="editMateria(materia)" class="btn btn-sm btn-warning me-2">
+                  Editar
+                </button>
+                <button (click)="deleteMateria(materia.id!)" class="btn btn-sm btn-danger">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="materias.length === 0" class="text-center text-muted">
+        No hay materias registradas.
+      </div>
+    </div>
+  </div>
+</div>
