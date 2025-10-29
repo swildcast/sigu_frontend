@@ -11,33 +11,33 @@
       <h5 class="card-title">{{ editingMateria ? 'Editar Materia' : 'Nueva Materia' }}</h5>
       <form (ngSubmit)="editingMateria ? updateMateria() : createMateria()">
         <div class="mb-3">
-          <label for="name" class="form-label">Nombre</label>
+          <label for="codigo" class="form-label">Código</label>
           <input
             type="text"
             class="form-control"
-            id="name"
-            [(ngModel)]="(editingMateria || newMateria).name"
-            name="name"
+            id="codigo"
+            [(ngModel)]="(editingMateria || newMateria).codigo"
+            name="codigo"
             required>
         </div>
         <div class="mb-3">
-          <label for="description" class="form-label">Descripción</label>
-          <textarea
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            type="text"
             class="form-control"
-            id="description"
-            [(ngModel)]="(editingMateria || newMateria).description"
-            name="description"
-            rows="3"
-            required></textarea>
+            id="nombre"
+            [(ngModel)]="(editingMateria || newMateria).nombre"
+            name="nombre"
+            required>
         </div>
         <div class="mb-3">
-          <label for="credits" class="form-label">Créditos</label>
+          <label for="creditos" class="form-label">Créditos</label>
           <input
             type="number"
             class="form-control"
-            id="credits"
-            [(ngModel)]="(editingMateria || newMateria).credits"
-            name="credits"
+            id="creditos"
+            [(ngModel)]="(editingMateria || newMateria).creditos"
+            name="creditos"
             min="1"
             required>
         </div>
@@ -60,8 +60,8 @@
           <thead>
             <tr>
               <th>ID</th>
+              <th>Código</th>
               <th>Nombre</th>
-              <th>Descripción</th>
               <th>Créditos</th>
               <th>Acciones</th>
             </tr>
@@ -69,9 +69,9 @@
           <tbody>
             <tr *ngFor="let materia of materias">
               <td>{{ materia.id }}</td>
-              <td>{{ materia.name }}</td>
-              <td>{{ materia.description }}</td>
-              <td>{{ materia.credits }}</td>
+              <td>{{ materia.codigo }}</td>
+              <td>{{ materia.nombre }}</td>
+              <td>{{ materia.creditos }}</td>
               <td>
                 <button (click)="editMateria(materia)" class="btn btn-sm btn-warning me-2">
                   Editar

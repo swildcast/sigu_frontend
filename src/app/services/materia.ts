@@ -5,16 +5,16 @@ import { Observable } from 'rxjs';
 
 export interface Materia {
   id?: number;
-  name: string;
-  description: string;
-  credits: number;
+  codigo: string;
+  nombre: string;
+  creditos: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class MateriaService {
-  private apiUrl = `${environment.apiUrl}/Materia`;
+  private apiUrl = `${environment.apiUrl}/Materias`;
 
   constructor(private http: HttpClient) { }
 

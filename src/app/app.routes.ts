@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'materias',
-    loadComponent: () => import('./components/materia-list/materia-list').then(m => m.MateriaListComponent)
+    loadComponent: () => import('./components/materia-list/materia-list').then(m => m.MateriasListComponent)
   },
   {
     path: 'programas',

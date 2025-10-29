@@ -5,21 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { Materia, MateriaService } from '../../services/materia';
 
 @Component({
-  selector: 'app-materia-list',
+  selector: 'app-materias-list',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
-  templateUrl: './materia-list.html',
-  styleUrls: ['./materia-list.scss']
+  templateUrl: './materias-list.component.html',
+  styleUrls: ['./materias-list.component.scss']
 })
-export class MateriaListComponent implements OnInit {
+export class MateriasListComponent implements OnInit {
   materias: Materia[] = [];
   showForm = false;
   editingMateria: Materia | null = null;
 
   newMateria: Materia = {
-    name: '',
-    description: '',
-    credits: 0
+    codigo: '',
+    nombre: '',
+    creditos: 0
   };
 
   constructor(private materiaService: MateriaService) {}
@@ -31,7 +31,7 @@ export class MateriaListComponent implements OnInit {
   loadMaterias() {
     this.materiaService.getMaterias().subscribe({
       next: (data) => this.materias = data,
-      error: (error) => console.error('Error loading materias:', error)
+      error: (error) => console.error('Error cargando materias:', error)
     });
   }
 
@@ -42,7 +42,7 @@ export class MateriaListComponent implements OnInit {
         this.resetForm();
         this.showForm = false;
       },
-      error: (error) => console.error('Error creating materia:', error)
+      error: (error) => console.error('Error creando materia:', error)
     });
   }
 
@@ -58,7 +58,7 @@ export class MateriaListComponent implements OnInit {
           this.loadMaterias();
           this.cancelEdit();
         },
-        error: (error) => console.error('Error updating materia:', error)
+        error: (error) => console.error('Error actualizando materia:', error)
       });
     }
   }
@@ -67,7 +67,7 @@ export class MateriaListComponent implements OnInit {
     if (confirm('¿Está seguro de eliminar esta materia?')) {
       this.materiaService.deleteMateria(id).subscribe({
         next: () => this.loadMaterias(),
-        error: (error) => console.error('Error deleting materia:', error)
+        error: (error) => console.error('Error eliminando materia:', error)
       });
     }
   }
@@ -80,9 +80,9 @@ export class MateriaListComponent implements OnInit {
 
   resetForm() {
     this.newMateria = {
-      name: '',
-      description: '',
-      credits: 0
+      codigo: '',
+      nombre: '',
+      creditos: 0
     };
   }
 }
