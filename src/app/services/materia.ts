@@ -14,7 +14,7 @@ export interface Materia {
   providedIn: 'root'
 })
 export class MateriaService {
-  private apiUrl = `${environment.apiUrl}/Materias`;
+  private apiUrl = `${environment.apiUrl}/materias`;
 
   constructor(private http: HttpClient) { }
 

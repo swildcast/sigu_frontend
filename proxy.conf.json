@@ -1,0 +1,14 @@
+{
+  "/api": {
+    "target": "https://localhost:7084",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  }
+}
+
+

@@ -14,18 +14,13 @@ export interface Programa {
   providedIn: 'root'
 })
 export class ProgramaService {
-  private apiUrl = `${environment.apiUrl}/Programa`;
+  private apiUrl = `${environment.apiUrl}/programas`;
 
   constructor(private http: HttpClient) { }
 
   // GET todos los programas
   getProgramas(): Observable<Programa[]> {
     return this.http.get<Programa[]>(this.apiUrl);
-  }
-
-  // GET programa por ID
-  getPrograma(id: number): Observable<Programa> {
-    return this.http.get<Programa>(`${this.apiUrl}/${id}`);
   }
 
   // POST nuevo programa

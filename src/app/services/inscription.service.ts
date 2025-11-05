@@ -15,7 +15,7 @@ export interface Inscription {
   providedIn: 'root'
 })
 export class InscriptionService {
-  private apiUrl = `${environment.apiUrl}/Inscription`;
+  private apiUrl = `${environment.apiUrl}/matriculas`;
 
   constructor(private http: HttpClient) { }
 

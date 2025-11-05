@@ -1,92 +1,80 @@
-<div class="container">
-  <h1>Gestión de Materias</h1>
+<div class="materia-container">
+  <h2>Gestión de Materias</h2>
 
-  <button (click)="showForm = !showForm" class="btn btn-primary mb-3">
-    {{ showForm ? 'Cancelar' : 'Agregar Nueva Materia' }}
+  <!-- Botón para agregar nueva materia -->
+  <button class="btn btn-primary" (click)="showForm = true; editingMateria = null">
+    + Agregar Materia
   </button>
 
   <!-- Formulario para crear/editar -->
-  <div *ngIf="showForm" class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">{{ editingMateria ? 'Editar Materia' : 'Nueva Materia' }}</h5>
-      <form (ngSubmit)="editingMateria ? updateMateria() : createMateria()">
-        <div class="mb-3">
-          <label for="codigo" class="form-label">Código</label>
-          <input
-            type="text"
-            class="form-control"
-            id="codigo"
-            [(ngModel)]="(editingMateria || newMateria).codigo"
-            name="codigo"
-            required>
-        </div>
-        <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nombre"
-            [(ngModel)]="(editingMateria || newMateria).nombre"
-            name="nombre"
-            required>
-        </div>
-        <div class="mb-3">
-          <label for="creditos" class="form-label">Créditos</label>
-          <input
-            type="number"
-            class="form-control"
-            id="creditos"
-            [(ngModel)]="(editingMateria || newMateria).creditos"
-            name="creditos"
-            min="1"
-            required>
-        </div>
-        <button type="submit" class="btn btn-success me-2">
+  <div *ngIf="showForm" class="form-container">
+    <h3>{{ editingMateria ? 'Editar' : 'Nueva' }} Materia</h3>
+    
+    <form (ngSubmit)="editingMateria ? updateMateria() : createMateria()">
+      <div class="form-group">
+        <label>Código:</label>
+        <input type="text"
+               [(ngModel)]="(editingMateria || newMateria).codigo"
+               name="codigo"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text"
+               [(ngModel)]="(editingMateria || newMateria).nombre"
+               name="nombre"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Créditos:</label>
+        <input type="number"
+               [(ngModel)]="(editingMateria || newMateria).creditos"
+               name="creditos"
+               required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success">
           {{ editingMateria ? 'Actualizar' : 'Crear' }}
         </button>
-        <button type="button" (click)="cancelEdit()" class="btn btn-secondary">
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
           Cancelar
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 
-  <!-- Lista de materias -->
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Lista de Materias</h5>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Código</th>
-              <th>Nombre</th>
-              <th>Créditos</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let materia of materias">
-              <td>{{ materia.id }}</td>
-              <td>{{ materia.codigo }}</td>
-              <td>{{ materia.nombre }}</td>
-              <td>{{ materia.creditos }}</td>
-              <td>
-                <button (click)="editMateria(materia)" class="btn btn-sm btn-warning me-2">
-                  Editar
-                </button>
-                <button (click)="deleteMateria(materia.id!)" class="btn btn-sm btn-danger">
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div *ngIf="materias.length === 0" class="text-center text-muted">
-        No hay materias registradas.
-      </div>
-    </div>
+  <!-- Tabla de materias -->
+  <div class="table-container">
+    <table class="materia-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Créditos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let materia of materias">
+          <td>{{ materia.codigo }}</td>
+          <td>{{ materia.nombre }}</td>
+          <td>{{ materia.creditos }}</td>
+          <td class="actions">
+            <button class="btn btn-warning" (click)="editMateria(materia)">
+              Editar
+            </button>
+            <button class="btn btn-danger" (click)="deleteMateria(materia.id!)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="materias.length === 0">
+          <td colspan="4" class="no-data">No hay materias registradas</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

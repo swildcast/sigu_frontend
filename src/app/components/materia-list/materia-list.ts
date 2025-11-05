@@ -25,7 +25,14 @@ export class MateriasListComponent implements OnInit {
   constructor(private materiaService: MateriaService) {}
 
   ngOnInit() {
-    this.loadMaterias();
+    this.loadMaterias(); // ← Asegúrate que esta línea esté activa
+
+    // COMENTA o ELIMINA los datos de prueba:
+    // this.materias = [
+    //   { id: 1, codigo: 'MAT101', nombre: 'Matemáticas Básicas', creditos: 4 },
+    //   { id: 2, codigo: 'PROG202', nombre: 'Programación I', creditos: 3 },
+    //   { id: 3, codigo: 'BD301', nombre: 'Base de Datos', creditos: 4 }
+    // ];
   }
 
   loadMaterias() {

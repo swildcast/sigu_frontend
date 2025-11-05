@@ -8,8 +8,8 @@ import { Programa, ProgramaService } from '../../services/programa';
   selector: 'app-programa-list',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
-  templateUrl: './programa-list.html',
-  styleUrls: ['./programa-list.scss']
+  templateUrl: './programa-list.component.html',
+  styleUrls: ['./programa-list.component.scss']
 })
 export class ProgramaListComponent implements OnInit {
   programas: Programa[] = [];
@@ -31,7 +31,7 @@ export class ProgramaListComponent implements OnInit {
   loadProgramas() {
     this.programaService.getProgramas().subscribe({
       next: (data) => this.programas = data,
-      error: (error) => console.error('Error loading programas:', error)
+      error: (error) => console.error('Error cargando programas:', error)
     });
   }
 
@@ -42,7 +42,7 @@ export class ProgramaListComponent implements OnInit {
         this.resetForm();
         this.showForm = false;
       },
-      error: (error) => console.error('Error creating programa:', error)
+      error: (error) => console.error('Error creando programa:', error)
     });
   }
 
@@ -58,7 +58,7 @@ export class ProgramaListComponent implements OnInit {
           this.loadProgramas();
           this.cancelEdit();
         },
-        error: (error) => console.error('Error updating programa:', error)
+        error: (error) => console.error('Error actualizando programa:', error)
       });
     }
   }
@@ -67,7 +67,7 @@ export class ProgramaListComponent implements OnInit {
     if (confirm('¿Está seguro de eliminar este programa?')) {
       this.programaService.deletePrograma(id).subscribe({
         next: () => this.loadProgramas(),
-        error: (error) => console.error('Error deleting programa:', error)
+        error: (error) => console.error('Error eliminando programa:', error)
       });
     }
   }

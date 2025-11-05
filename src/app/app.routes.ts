@@ -3,13 +3,13 @@
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/inscriptions',
+    redirectTo: '/materias',
     pathMatch: 'full'
   },
-  {
-    path: 'inscriptions',
-    loadComponent: () => import('./components/inscription-list/inscription-list').then(m => m.InscriptionListComponent)
-  },
+  // {
+  //   path: 'inscriptions',
+  //   loadComponent: () => import('./components/inscription-list/inscription-list').then(m => m.InscriptionListComponent)
+  // },
   {
     path: 'materias',
     loadComponent: () => import('./components/materia-list/materia-list').then(m => m.MateriasListComponent)
