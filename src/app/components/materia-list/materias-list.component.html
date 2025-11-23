@@ -1,0 +1,119 @@
+<div class="materia-container">
+  <h2>Gestión de Materias</h2>
+
+  <!-- Botón para agregar nueva materia -->
+  <button class="btn btn-primary" (click)="showForm = true; editingMateria = null">
+    + Agregar Materia
+  </button>
+
+  <!-- Formulario para crear/editar -->
+  <div *ngIf="showForm" class="form-container">
+    <h3>{{ editingMateria ? 'Editar' : 'Nueva' }} Materia</h3>
+    
+    <form (ngSubmit)="editingMateria ? updateMateria() : createMateria()">
+      <div class="form-group">
+        <label>Código:</label>
+        <input type="text"
+               [(ngModel)]="(editingMateria || newMateria).codigo"
+               name="codigo"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text"
+               [(ngModel)]="(editingMateria || newMateria).nombre"
+               name="nombre"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Créditos:</label>
+        <input type="number"
+               [(ngModel)]="(editingMateria || newMateria).creditos"
+               name="creditos"
+               required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success">
+          {{ editingMateria ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de materias -->
+  <div class="table-container">
+    <table class="materia-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Créditos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let materia of materias">
+          <td>{{ materia.codigo }}</td>
+          <td>{{ materia.nombre }}</td>
+          <td>{{ materia.creditos }}</td>
+          <td class="actions">
+            <button class="btn btn-info" (click)="openPrerrequisitos(materia)">
+              Prerrequisitos
+            </button>
+            <button class="btn btn-warning" (click)="editMateria(materia)">
+              Editar
+            </button>
+            <button class="btn btn-danger" (click)="deleteMateria(materia.id!)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="materias.length === 0">
+          <td colspan="4" class="no-data">No hay materias registradas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal de Prerrequisitos -->
+  <div *ngIf="showPrerrequisitosModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Prerrequisitos de {{ selectedMateriaForPrerrequisitos?.nombre }}</h3>
+      
+      <div class="prerrequisitos-list">
+        <ul>
+          <li *ngFor="let pre of currentPrerrequisitos">
+            {{ pre.materiaRequisito?.nombre || 'Materia ID: ' + pre.idMateriaReq }}
+            <button class="btn btn-sm btn-danger" (click)="removePrerrequisito(pre.id!)">X</button>
+          </li>
+          <li *ngIf="currentPrerrequisitos.length === 0">No tiene prerrequisitos asignados.</li>
+        </ul>
+      </div>
+
+      <div class="add-prerrequisito">
+        <h4>Agregar Prerrequisito</h4>
+        <div class="form-group">
+          <select [(ngModel)]="newPrerrequisitoId">
+            <option [ngValue]="null">Seleccione una materia...</option>
+            <option *ngFor="let m of getAvailableMaterias()" [ngValue]="m.id">
+              {{ m.nombre }} ({{ m.codigo }})
+            </option>
+          </select>
+          <button class="btn btn-success" (click)="addPrerrequisito()" [disabled]="!newPrerrequisitoId">
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" (click)="closePrerrequisitos()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

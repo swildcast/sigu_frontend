@@ -1,0 +1,84 @@
+<div class="programa-container">
+  <h2>Gestión de Programas Académicos</h2>
+
+  <!-- Botón para agregar nuevo programa -->
+  <button class="btn btn-primary" (click)="showForm = true; editingPrograma = null">
+    + Agregar Programa
+  </button>
+
+  <!-- Formulario para crear/editar -->
+  <div *ngIf="showForm" class="form-container">
+    <h3>{{ editingPrograma ? 'Editar' : 'Nuevo' }} Programa</h3>
+    
+    <form (ngSubmit)="editingPrograma ? updatePrograma() : createPrograma()">
+      <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text"
+               [(ngModel)]="(editingPrograma || newPrograma).name"
+               name="name"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>Descripción:</label>
+        <textarea
+               [(ngModel)]="(editingPrograma || newPrograma).description"
+               name="description"
+               rows="3"
+               required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Duración (años):</label>
+        <input type="number"
+               [(ngModel)]="(editingPrograma || newPrograma).duration"
+               name="duration"
+               min="1"
+               required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success">
+          {{ editingPrograma ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de programas -->
+  <div class="table-container">
+    <table class="programa-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Duración (años)</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let programa of programas">
+          <td>{{ programa.name }}</td>
+          <td>{{ programa.description }}</td>
+          <td>{{ programa.duration }}</td>
+          <td class="actions">
+            <button class="btn btn-warning" (click)="editPrograma(programa)">
+              Editar
+            </button>
+            <button class="btn btn-danger" (click)="deletePrograma(programa.id!)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="programas.length === 0">
+          <td colspan="4" class="no-data">No hay programas registrados</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
